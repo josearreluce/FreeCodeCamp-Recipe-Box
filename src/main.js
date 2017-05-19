@@ -1,3 +1,7 @@
+var React = require('react');
+var ReactDOM = require('react-dom');
+var ReactBootstrap = require('react-bootstrap');
+
 var Modal = ReactBootstrap.Modal;
 class ModalBox extends React.Component {
   constructor () {
