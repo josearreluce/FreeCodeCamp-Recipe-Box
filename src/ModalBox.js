@@ -28,20 +28,34 @@ class ModalBox extends React.Component {
   render () {
     return (
       <div>
-        <button type="button" onClick={this.openModal}>
-          Open Modal
+        <button className="btn btn-primary" type="button" onClick={this.openModal}>
+          Add Recipe
         </button>
         <Modal show={this.state.showModal} >
           <Modal.Header closeButton>
-            <Modal.Title>Modal Heading</Modal.Title>
+            <Modal.Title> Add New Recipe </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <h4> hello world </h4>
-            <p> This is a modal box.</p>
-            <p> Enjoy ! </p>
+            <div className="form-group row">
+              <label className="col-md-2 col-form-label" for="recipe-name">Recipe</label>
+              <div className="col-md-10">
+                <input className="form-control" type="text" id="recipe-name" 
+                  placeholder="Recipe Name"/>
+              </div>
+            </div>
+            <div className="form-group row">
+              <label className="col-md-2 col-form-label" for="ingredients"> Recipe Ingredients </label>
+              <div className="col-md-10">
+                <input className="form-control" type="text" id="ingredients" 
+                  placeholder="Enter Ingredients, separated by commas."/>
+              </div>
+            </div>
           </Modal.Body>
           <Modal.Footer>
-            <button onClick={this.closeModal}>
+            <button className="btn btn-primary" onClick={this.addRecipe}>
+              Add Recipe
+            </button>
+            <button className="btn btn-default" onClick={this.closeModal}>
               Close
             </button>
           </Modal.Footer>
@@ -51,4 +65,4 @@ class ModalBox extends React.Component {
   }
 }
 
-module.exports = {ModalBox};
+module.exports = ModalBox;
