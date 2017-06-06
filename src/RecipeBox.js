@@ -2,6 +2,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 class Recipe extends React.Component {
 	render () {
+		var idNum = this.props.num;
 		var key = Object.keys(this.props.ingredients);
 		var ingredients = this.props.ingredients[key];
 		var listedIngredients = [];
@@ -10,9 +11,21 @@ class Recipe extends React.Component {
 		}
 
 		return (
-			<div>
-				<h4> {this.props.name} </h4>
-				<ul> {listedIngredients} </ul>
+			<div className="panel panel-default">
+				<div className="panel-heading" role="tab" id={"heading" + idNum}>
+				<h4 className="panel-title">				
+					<a role="button" data-toggle="collapse" data-parent="#accordion" 
+						href={"#collapse" + idNum} aria-expanded="true" aria-controls={"collapse" + idNum}> 
+						{this.props.name}
+					</a>
+				</h4>
+				</div>
+
+				<div id={"collapse" + idNum} className="panel-collapse collapse in" role="tabpanel" aria-labelledby={"heading" + idNum}>
+					<div className="panel-body">
+						<ul>{listedIngredients}</ul>
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -25,11 +38,7 @@ class RecipeBox extends React.Component {
 
 		var recipesList = [];
 		for(var i = 0; i < recipes.length;i++) {
-			var currRecipe =(<li className="btn" key={i}> 
-								<Recipe name={names[i]} ingredients={recipes[i]} />
-							</li>);
-			console.log("Ingredients: ");
-			console.log(recipes[i]);
+			var currRecipe =(<Recipe name={names[i]} ingredients={recipes[i]} num={i}/>);
 			recipesList.push(currRecipe);
 		}
 
@@ -37,10 +46,8 @@ class RecipeBox extends React.Component {
 			<div className="row" id="recipe-box">
 				<div className="col-offset-md-2 col-md-12">				
 					<h1 className="text-center"> Recipes </h1>
-					<div className="well">
-						<ul>
-							{recipesList}
-						</ul>
+					<div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">						
+						{recipesList}						
 					</div>
 				</div>
 			</div>
