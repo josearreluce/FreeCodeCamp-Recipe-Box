@@ -6,13 +6,13 @@ class Recipe extends React.Component {
 		var ingredients = this.props.ingredients[key];
 		var listedIngredients = [];
 		for(var i = 0; i < ingredients.length; i++) {
-			listedIngredients.push(<li>{ingredients[i]}</li>);
+			listedIngredients.push(<li key={i}>{ingredients[i]}</li>);
 		}
 
 		return (
 			<div>
 				<h4> {this.props.name} </h4>
-				<p> {listedIngredients} </p>
+				<ul> {listedIngredients} </ul>
 			</div>
 		);
 	}
@@ -25,7 +25,9 @@ class RecipeBox extends React.Component {
 
 		var recipesList = [];
 		for(var i = 0; i < recipes.length;i++) {
-			var currRecipe = <Recipe name={names[i]} ingredients={recipes[i]} />;
+			var currRecipe =(<li className="btn" key={i}> 
+								<Recipe name={names[i]} ingredients={recipes[i]} />
+							</li>);
 			console.log("Ingredients: ");
 			console.log(recipes[i]);
 			recipesList.push(currRecipe);

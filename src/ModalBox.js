@@ -20,7 +20,9 @@ class ModalBox extends React.Component {
   
   closeModal () {
     this.setState({
-      showModal: false
+      showModal: false,
+      recipeName: '',
+      ingredients: []
     });
   }
   
@@ -46,6 +48,7 @@ class ModalBox extends React.Component {
     var name = this.state.recipeName;
     var ingredients = this.state.ingredients.split(",");
     this.props.addRecipe(name, ingredients);
+    this.closeModal();
   }
 
   render () {
