@@ -1,6 +1,15 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 class Recipe extends React.Component {
+	constructor () {
+		super();
+		this.delete = this.delete.bind(this);
+	}
+
+	delete () {
+		this.props.remove(this.props.num);
+	}
+
 	render () {
 		var idNum = this.props.num;
 		var key = Object.keys(this.props.ingredients);
@@ -21,9 +30,18 @@ class Recipe extends React.Component {
 				</h4>
 				</div>
 
-				<div id={"collapse" + idNum} className="panel-collapse collapse in" role="tabpanel" aria-labelledby={"heading" + idNum}>
+				<div id={"collapse" + idNum} className="panel-collapse collapse" role="tabpanel" aria-labelledby={"heading" + idNum}>
 					<div className="panel-body">
-						<ul>{listedIngredients}</ul>
+						<h5 className="text-center">  Ingredients </h5>
+						<ul>{listedIngredients}</ul>				
+					</div>
+					<div className="panel-footer">
+					<button className="btn btn-danger" onClick={this.delete}>
+						Delete
+					</button>
+					<button className="btn btn-default">
+						Edit
+					</button>         
 					</div>
 				</div>
 			</div>
@@ -38,7 +56,8 @@ class RecipeBox extends React.Component {
 
 		var recipesList = [];
 		for(var i = 0; i < recipes.length;i++) {
-			var currRecipe =(<Recipe name={names[i]} ingredients={recipes[i]} num={i}/>);
+			var currRecipe =(<Recipe name={names[i]} ingredients={recipes[i]} 
+				num={i} remove={this.props.removeRecipe}/>);
 			recipesList.push(currRecipe);
 		}
 

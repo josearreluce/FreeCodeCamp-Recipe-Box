@@ -10,6 +10,7 @@ class App extends React.Component {
     super()
 
     this.addRecipe = this.addRecipe.bind(this);
+    this.removeRecipe = this.removeRecipe.bind(this);
     this.state = {
       recipes: new Array(0),
       names: new Array(0)
@@ -29,13 +30,23 @@ class App extends React.Component {
     });
   }
 
+  removeRecipe(index) {
+  	var currentRecipes = this.state.recipes;
+  	var currentNames = this.state.names;
 
+  	currentRecipes.splice(index, 1);
+  	currentNames.splice(index, 1);
+  	this.setState({
+  		recipes: currentRecipes,
+  		names : currentNames
+  	});
+  }
 
   render () {
     return (
       <div>
         <RecipeBox recipes={this.state.recipes} 
-          names={this.state.names} />
+          names={this.state.names} removeRecipe={this.removeRecipe}/>
         <ModalBox addRecipe={this.addRecipe}/>
       </div>
     );
