@@ -28,7 +28,7 @@ class Recipe extends React.Component {
 		}
 
 		return (
-			<div className="panel panel-default">
+			<div className="panel panel-success">
 				<div className="panel-heading" role="tab" id={"heading" + idNum}>
 				<h4 className="panel-title">				
 					<a role="button" data-toggle="collapse" data-parent="#accordion" 
@@ -73,7 +73,7 @@ class RecipeBox extends React.Component {
 			<div className="row" id="recipe-box">
 				<div className="col-offset-md-2 col-md-12">				
 					<h1 className="text-center"> Recipes </h1>
-					<div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">						
+					<div className="well panel-group" id="accordion" role="tablist" aria-multiselectable="true">						
 						{recipesList}						
 					</div>
 				</div>

@@ -103,7 +103,7 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
+      <div className="col-md-8 col-md-offset-2">
         <RecipeBox recipes={this.state.recipes} 
           names={this.state.names} edit={this.startEditRecipe} removeRecipe={this.removeRecipe}/>
         <ModalBox addRecipe={this.addRecipe} editRecipe={this.editRecipe}
