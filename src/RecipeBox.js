@@ -14,6 +14,7 @@ class Recipe extends React.Component {
 	edit () {
 		var key = Object.keys(this.props.ingredients);
 		var ingredients = this.props.ingredients[key];
+		console.log(this.props.num);
 		this.props.edit(this.props.num, this.props.name, ingredients);
 	}
 

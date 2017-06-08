@@ -10,8 +10,12 @@ class App extends React.Component {
     super();
 
     this.addRecipe = this.addRecipe.bind(this);
+    this.endEdit = this.endEdit.bind(this);
+    this.editRecipe = this.editRecipe.bind(this);
     this.startEditRecipe = this.startEditRecipe.bind(this);
     this.removeRecipe = this.removeRecipe.bind(this);
+    this.updateIngredients = this.updateIngredients.bind(this);
+    this.updateName = this.updateName.bind(this);
     this.state = {
       recipes: new Array(0),
       names: new Array(0),
@@ -42,13 +46,17 @@ class App extends React.Component {
   	var editedRecipe = {};
   	editedRecipe[newName] = newIngredients;
   	
-  	currentRecipes[i] = editedRecipe;
-  	currentNames[i] = newName;
+  	currentRecipes[index] = editedRecipe;
+  	currentNames[index] = newName;
 
   	this.setState({
   		recipes: currentRecipes,
   		names: currentNames
   	});
+
+  	console.log(this.state.recipes);
+  	console.log(this.state.names);
+  	this.endEdit();
   }
 
   removeRecipe(index) {
@@ -72,6 +80,24 @@ class App extends React.Component {
   	});
   }
 
+  endEdit () {
+  	this.setState({
+  		modalMode: "Add New"
+  	});
+  }
+
+  updateName(e) {
+    this.setState({
+      currRecipe: e.target.value
+    });
+  }
+
+  updateIngredients(e) {
+    this.setState({
+      currIngredients: e.target.value
+    });
+  }
+
   render () {
     return (
       <div>
@@ -79,7 +105,9 @@ class App extends React.Component {
           names={this.state.names} edit={this.startEditRecipe} removeRecipe={this.removeRecipe}/>
         <ModalBox addRecipe={this.addRecipe} editRecipe={this.editRecipe}
         	modalMode={this.state.modalMode} currRecipe={this.state.currRecipe} 
-        	currIngredients={this.state.currIngredients}/>
+        	currIngredients={this.state.currIngredients} updateName={this.updateName}
+        	updateIngredients={this.updateIngredients} endEdit={this.endEdit}
+        	index={this.state.index}/>
       </div>
     );
   }
