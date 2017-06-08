@@ -4,10 +4,17 @@ class Recipe extends React.Component {
 	constructor () {
 		super();
 		this.delete = this.delete.bind(this);
+		this.edit = this.edit.bind(this);
 	}
 
 	delete () {
 		this.props.remove(this.props.num);
+	}
+
+	edit () {
+		var key = Object.keys(this.props.ingredients);
+		var ingredients = this.props.ingredients[key];
+		this.props.edit(this.props.num, this.props.name, ingredients);
 	}
 
 	render () {
@@ -39,7 +46,7 @@ class Recipe extends React.Component {
 					<button className="btn btn-danger" onClick={this.delete}>
 						Delete
 					</button>
-					<button className="btn btn-default">
+					<button className="btn btn-default" onClick={this.edit}>
 						Edit
 					</button>         
 					</div>
@@ -57,7 +64,7 @@ class RecipeBox extends React.Component {
 		var recipesList = [];
 		for(var i = 0; i < recipes.length;i++) {
 			var currRecipe =(<Recipe name={names[i]} ingredients={recipes[i]} 
-				num={i} remove={this.props.removeRecipe}/>);
+				num={i} remove={this.props.removeRecipe} edit={this.props.edit}/>);
 			recipesList.push(currRecipe);
 		}
 

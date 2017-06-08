@@ -7,6 +7,9 @@ class ModalBox extends React.Component {
   constructor () {
     super();
     this.closeModal = this.closeModal.bind(this);
+    this.edit = this.edit.bind(this);
+    this.editingModal = this.editingModal.bind(this);
+    this.handleRecipe = this.handleRecipe.bind(this);
     this.newRecipe = this.newRecipe.bind(this);
     this.openModal = this.openModal.bind(this);
     this.updateName = this.updateName.bind(this);
@@ -14,15 +17,44 @@ class ModalBox extends React.Component {
     this.state = {
       showModal: false,
       recipeName: '',
-      ingredients: []
+      ingredients: [],
+      mode: 'Add',
+      index: -1
     };
   }
-  
+
+  handleRecipe() {
+    if(this.state.mode === 'Edit') {
+      console.log("Calling editingmodal");
+      this.editingModal(this.props.index, this.props.currRecipe,
+        this.props.currIngredients);
+    } else {
+      this.newRecipe();
+    }
+  }
+
+  edit () {
+    var name = this.state.recipeName;
+    var ingredients = this.state.ingredients.split(",");
+    this.props.editRecipe(this.state.index,name, ingredients);
+  }
+
+  editingModal (index, name, ingredients) {
+    this.setState({
+      showModal: true,
+      recipeName: name,
+      ingredients: ingredients,
+      mode: 'Edit',
+      index: index
+    });
+  }
+
   closeModal () {
     this.setState({
       showModal: false,
       recipeName: '',
-      ingredients: []
+      ingredients: [],
+      mode: 'Add'
     });
   }
   
@@ -52,12 +84,16 @@ class ModalBox extends React.Component {
   }
 
   render () {
+    var showModal = this.state.showModal;
+    if(this.props.modalMode === "Edit") {
+      showModal = true;
+    }
     return (
       <div>
         <button className="btn btn-primary" type="button" onClick={this.openModal}>
           Add Recipe
         </button>
-        <Modal show={this.state.showModal} >
+        <Modal show={showModal} >
           <Modal.Header closeButton>
             <Modal.Title> Add New Recipe </Modal.Title>
           </Modal.Header>
@@ -86,7 +122,7 @@ class ModalBox extends React.Component {
             </div>
           </Modal.Body>
           <Modal.Footer>
-            <button className="btn btn-primary" onClick={this.newRecipe}>
+            <button className="btn btn-primary" onClick={this.handleRecipe}>
               Add Recipe
             </button>
             <button className="btn btn-default" onClick={this.closeModal}>
