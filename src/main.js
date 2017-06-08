@@ -82,6 +82,9 @@ class App extends React.Component {
 
   endEdit () {
   	this.setState({
+  		currRecipe: "",
+  		currIngredients: "",
+  		index: -1,
   		modalMode: "Add New"
   	});
   }
