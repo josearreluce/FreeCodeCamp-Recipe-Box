@@ -10,7 +10,7 @@ class App extends React.Component {
     super();
 
     this.addRecipe = this.addRecipe.bind(this);
-    this.endEdit = this.endEdit.bind(this);
+    this.clearModal = this.clearModal.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
     this.startEditRecipe = this.startEditRecipe.bind(this);
     this.removeRecipe = this.removeRecipe.bind(this);
@@ -37,6 +37,8 @@ class App extends React.Component {
       recipes: currentRecipes.concat(newRecipe),
       names: currentNames.concat(name)
     });
+
+    this.clearModal();
   }
 
   editRecipe(index, newName, newIngredients) {
@@ -54,9 +56,7 @@ class App extends React.Component {
   		names: currentNames
   	});
 
-  	console.log(this.state.recipes);
-  	console.log(this.state.names);
-  	this.endEdit();
+  	this.clearModal();
   }
 
   removeRecipe(index) {
@@ -80,15 +80,6 @@ class App extends React.Component {
   	});
   }
 
-  endEdit () {
-  	this.setState({
-  		currRecipe: "",
-  		currIngredients: "",
-  		index: -1,
-  		modalMode: "Add New"
-  	});
-  }
-
   updateName(e) {
     this.setState({
       currRecipe: e.target.value
@@ -99,6 +90,15 @@ class App extends React.Component {
     this.setState({
       currIngredients: e.target.value
     });
+  }
+
+  clearModal () {
+  	this.setState({
+  		currRecipe: "",
+  		currIngredients: "",
+  		index: -1,
+  		modalMode: "Add New"
+  	});
   }
 
   render () {
