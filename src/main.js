@@ -5,6 +5,16 @@ var RecipeBoxComponents = require('./RecipeBox.js');
 
 var Recipe = RecipeBoxComponents.Recipe;
 var RecipeBox = RecipeBoxComponents.RecipeBox
+
+if(localStorage.recipes == null) {
+	localStorage.setItem('recipes', JSON.stringify([{'cheese': ['cheese']}]));
+}
+
+if(localStorage.names == null) {
+	localStorage.setItem('names', JSON.stringify(['cheese']));
+}
+
+console.log(localStorage);
 class App extends React.Component {
   constructor() {
     super();
@@ -16,9 +26,10 @@ class App extends React.Component {
     this.removeRecipe = this.removeRecipe.bind(this);
     this.updateIngredients = this.updateIngredients.bind(this);
     this.updateName = this.updateName.bind(this);
+
     this.state = {
-      recipes: new Array(0),
-      names: new Array(0),
+      recipes: JSON.parse(localStorage.getItem('recipes')),
+      names: JSON.parse(localStorage.getItem('names')),
       currRecipe: "",
       currIngredients: "",
       modalMode: false,
@@ -32,11 +43,16 @@ class App extends React.Component {
 
     var newRecipe = {};
     newRecipe[name] = ingredients;
+    console.log(currentRecipes);
     console.log(newRecipe);
     this.setState({
       recipes: currentRecipes.concat(newRecipe),
       names: currentNames.concat(name)
     });
+
+    localStorage.setItem("names", JSON.stringify(this.state.names.concat(name)));
+    localStorage.setItem("recipes", JSON.stringify(this.state.recipes.concat(newRecipe)));
+    
 
     this.clearModal();
   }
