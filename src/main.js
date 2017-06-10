@@ -14,7 +14,6 @@ if(localStorage.names == null) {
 	localStorage.setItem('names', JSON.stringify(['cheese']));
 }
 
-console.log(localStorage);
 class App extends React.Component {
   constructor() {
     super();
@@ -43,8 +42,6 @@ class App extends React.Component {
 
     var newRecipe = {};
     newRecipe[name] = ingredients;
-    console.log(currentRecipes);
-    console.log(newRecipe);
     this.setState({
       recipes: currentRecipes.concat(newRecipe),
       names: currentNames.concat(name)
@@ -53,7 +50,6 @@ class App extends React.Component {
     localStorage.setItem("names", JSON.stringify(this.state.names.concat(name)));
     localStorage.setItem("recipes", JSON.stringify(this.state.recipes.concat(newRecipe)));
     
-
     this.clearModal();
   }
 
@@ -72,6 +68,9 @@ class App extends React.Component {
   		names: currentNames
   	});
 
+  	localStorage.setItem("names", JSON.stringify(this.state.names));
+  	localStorage.setItem("recipes", JSON.stringify(this.state.recipes));
+
   	this.clearModal();
   }
 
@@ -85,6 +84,9 @@ class App extends React.Component {
   		recipes: currentRecipes,
   		names : currentNames
   	});
+
+  	localStorage.setItem("names", JSON.stringify(this.state.names));
+  	localStorage.setItem("recipes", JSON.stringify(this.state.recipes));
   }
 
   startEditRecipe(index, name, ingredients) {
