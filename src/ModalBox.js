@@ -36,7 +36,7 @@ class ModalBox extends React.Component {
 
   closeModal () {
     if(this.props.modalMode === "Edit") {
-      this.props.endEdit();
+      this.props.clearModal();
     }
 
     this.setState({
@@ -45,6 +45,8 @@ class ModalBox extends React.Component {
       ingredients: [],
       mode: 'Add'
     });
+
+    this.props.clearModal();
   }
   
   openModal () {
@@ -84,7 +86,7 @@ class ModalBox extends React.Component {
           Add Recipe
         </button>
         <Modal show={showModal} >
-          <Modal.Header closeButton>
+          <Modal.Header closeButton={false}>
             <Modal.Title> {action + "Recipe"} </Modal.Title>
           </Modal.Header>
           <Modal.Body>

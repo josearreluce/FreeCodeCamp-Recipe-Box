@@ -3,7 +3,6 @@ var ReactDOM = require('react-dom');
 var ModalBox = require('./ModalBox.js');
 var RecipeBoxComponents = require('./RecipeBox.js');
 
-var Recipe = RecipeBoxComponents.Recipe;
 var RecipeBox = RecipeBoxComponents.RecipeBox
 
 if(localStorage.recipes == null) {
@@ -21,8 +20,8 @@ class App extends React.Component {
     this.addRecipe = this.addRecipe.bind(this);
     this.clearModal = this.clearModal.bind(this);
     this.editRecipe = this.editRecipe.bind(this);
-    this.startEditRecipe = this.startEditRecipe.bind(this);
     this.removeRecipe = this.removeRecipe.bind(this);
+    this.startEditRecipe = this.startEditRecipe.bind(this);
     this.updateIngredients = this.updateIngredients.bind(this);
     this.updateName = this.updateName.bind(this);
 
@@ -30,21 +29,17 @@ class App extends React.Component {
       recipes: JSON.parse(localStorage.getItem('recipes')),
       names: JSON.parse(localStorage.getItem('names')),
       currRecipe: "",
-      currIngredients: "",
-      modalMode: false,
-      index: -1
+      currIngredients: ""
     }
   }
 
   addRecipe(name, ingredients) {
-    var currentRecipes = this.state.recipes;
-    var currentNames = this.state.names;
-
     var newRecipe = {};
     newRecipe[name] = ingredients;
+
     this.setState({
-      recipes: currentRecipes.concat(newRecipe),
-      names: currentNames.concat(name)
+      recipes: this.state.recipes.concat(newRecipe),
+      names: this.state.names.concat(name)
     });
 
     localStorage.setItem("names", JSON.stringify(this.state.names.concat(name)));
@@ -91,9 +86,9 @@ class App extends React.Component {
 
   startEditRecipe(index, name, ingredients) {
   	this.setState({
-  		index: index,
   		currRecipe: name,
   		currIngredients: ingredients,
+  		index: index,
   		modalMode: "Edit"
   	});
   }
@@ -114,7 +109,6 @@ class App extends React.Component {
   	this.setState({
   		currRecipe: "",
   		currIngredients: "",
-  		index: -1,
   		modalMode: "Add New"
   	});
   }
@@ -127,7 +121,7 @@ class App extends React.Component {
         <ModalBox addRecipe={this.addRecipe} editRecipe={this.editRecipe}
         	modalMode={this.state.modalMode} currRecipe={this.state.currRecipe} 
         	currIngredients={this.state.currIngredients} updateName={this.updateName}
-        	updateIngredients={this.updateIngredients} endEdit={this.endEdit}
+        	updateIngredients={this.updateIngredients} clearModal={this.clearModal}
         	index={this.state.index}/>
       </div>
     );
